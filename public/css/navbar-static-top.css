@@ -1,0 +1,16 @@
+body {
+  min-height: 2000px;
+}
+
+.navbar-static-top {
+  margin-bottom: 19px;
+}
+
+#logo{
+	padding: 0px;
+	margin: 1px;
+	background-image: url("../assets/logo-marti-digital.jpg");
+	background-repeat: no-repeat;
+	width: 70px;
+	height: 50px;
+}
