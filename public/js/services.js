@@ -18,6 +18,12 @@ module.factory('Category', function($resource){
     });
 });
 
+module.factory('Attributes', function($resource){
+    var url = apiBaseUrl+'/categories/:categoryId/attributes';
+    return $resource(url, {},{
+        get:{method:"GET", params:{},isArray:true}
+    });
+});
 
 module.factory('Broadcast', function ($rootScope) {
     var broadcastService = {

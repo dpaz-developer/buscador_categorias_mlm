@@ -2,12 +2,14 @@
 
 /* Controllers */
 
-function CategoriasMLMController ($scope,$timeout, $filter, Categories,Category,Broadcast){
+function CategoriasMLMController ($scope,$timeout,$filter,Categories,Category,Attributes,Broadcast){
     $scope.nombre = 'David Paz';
     $scope.categories = [];
     $scope.categoriesPathRoot = [];
     $scope.listAllowed = false;
     $scope.isSearching = false;
+    $scope.isSearchAttributes = false;
+    $scope.listAttributes = [];
 
     $scope.searchCategories = function(){
         console.log("buscando categorias");
@@ -34,11 +36,22 @@ function CategoriasMLMController ($scope,$timeout, $filter, Categories,Category,
             $scope.categoriesPathRoot = data.path_from_root;
             $scope.listAllowed = data.settings.listing_allowed;
             $scope.attributeTypes = data.attribute_types;
-        }, function (error){
+        },function (error){
            $scope.categories = "No encontradas..";
            $scope.categoriesPathRoot = [];
            $scope.listAllowed = false;
 
+        });
+    };
+
+    $scope.searchAttributes = function (catId, catName){
+        var params = {categoryId:catId};
+        Attributes.get(params, {}, function (data){
+            $scope.attrCatId = catId;
+            $scope.attrCatName = catName;
+           $scope.listAttributes = data;
+        },function (error){
+            $scope.listAttributes = [];
         });
     };
 }
