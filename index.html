@@ -5,6 +5,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>Categorias mercadolibre</title>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="/assets/favicon.ico" />
         <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
 
@@ -43,9 +44,21 @@
       <h1>Explorador de categorias MLM</h1>
 
       <div>
-        <a class="btn btn-default" ng-click="searchCategories()" href="#" role="button">Buscar</a>
-        <a href="" ng-click="searchCategories()">/</a>
+        <div>
+        <form class="form-inline">
+          <div class="form-group">            
+            <button type="submit" ng-click="searchCategories()" class="btn btn-default">Categorias Raíz</button>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail2">Búsqueda por id</label>
+            <input type="text" ng-model="inputCatId" class="form-control"  placeholder="categoryId">
+          </div>
+          <button type="submit"  ng-click="searchCategory(inputCatId);" class="btn btn-default">Buscar</button>
+        </form>
+        </div>
+        
         <div ng-show="isSearching">
+            <a href="" ng-click="searchCategories()">/</a>
             <span ng-repeat="categoryPathRoot in categoriesPathRoot">
                 ->{{categoryPathRoot.id}}-<a href="#" ng-click="searchCategory(categoryPathRoot.id);">{{categoryPathRoot.name}}</a>
             </span>
