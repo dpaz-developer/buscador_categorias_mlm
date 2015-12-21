@@ -59,12 +59,15 @@
         
         <div ng-show="isSearching">
             <a href="" ng-click="searchCategories()">/</a>
+            <button class="btn btn-link" ng-click="exportToExcel('#Table1')">
+                <span class="glyphicon glyphicon-share"></span> Export to Excel
+            </button>
             <span ng-repeat="categoryPathRoot in categoriesPathRoot">
                 ->{{categoryPathRoot.id}}-<a href="#" ng-click="searchCategory(categoryPathRoot.id);">{{categoryPathRoot.name}}</a>
             </span>
             <div ng-show="listAllowed" class="alert alert-success" role="alert">Si puedes publicar!!</div>
             <div ng-show="!listAllowed" class="alert alert-warning" role="alert">No puedes publicar!!</div>
-            <table class="table table-striped">
+            <table id="Table1" class="table table-striped">
                 <tr>
                     <th>#mlmId</th>
                     <th>Nombre</th>
@@ -86,7 +89,9 @@
             <h4 class="modal-title" id="myModalLabel">Atributos de {{attrCatId}}-{{attrCatName}}</h4>
           </div>
           <div class="modal-body">
-            <span ng-repeat="attr in listAttributes">-{{attr.name}}</span> 
+            <span ng-repeat="attr in listAttributes">
+               <br/> -<b>{{attr.name}}</b>[<span ng-repeat="values in attr.values">{{values.name}},</span>]
+            </span> 
           </div>
         </div>
       </div>

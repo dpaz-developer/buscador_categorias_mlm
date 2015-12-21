@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-function CategoriasMLMController ($scope,$timeout,$filter,Categories,Category,Attributes,Broadcast){
+function CategoriasMLMController ($scope,$timeout,$filter,Categories,Category,Attributes,Excel,Broadcast){
     $scope.nombre = 'David Paz';
     $scope.categories = [];
     $scope.categoriesPathRoot = [];
@@ -54,4 +54,9 @@ function CategoriasMLMController ($scope,$timeout,$filter,Categories,Category,At
             $scope.listAttributes = [];
         });
     };
+
+    $scope.exportToExcel=function(tableId){ // ex: '#my-table'
+            $scope.exportHref=Excel.tableToExcel(tableId,'testExcelAngular');
+            $timeout(function(){location.href=$scope.exportHref;},100); // trigger download
+        };
 }
