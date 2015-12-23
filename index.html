@@ -65,7 +65,7 @@
             <span ng-repeat="categoryPathRoot in categoriesPathRoot">
                 ->{{categoryPathRoot.id}}-<a href="#" ng-click="searchCategory(categoryPathRoot.id);">{{categoryPathRoot.name}}</a>
             </span>
-            <div ng-show="listAllowed" class="alert alert-success" role="alert">Si puedes publicar!!</div>
+            <div ng-show="listAllowed" class="alert alert-success" role="alert">Si puedes publicar!! Categoria Espejo = ({{categoriaEspejo}})</div>
             <div ng-show="!listAllowed" class="alert alert-warning" role="alert">No puedes publicar!!</div>
             <table id="Table1" class="table table-striped">
                 <tr>

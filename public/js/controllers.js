@@ -10,6 +10,7 @@ function CategoriasMLMController ($scope,$timeout,$filter,Categories,Category,At
     $scope.isSearching = false;
     $scope.isSearchAttributes = false;
     $scope.listAttributes = [];
+    $scope.categoriaEspejo = "";
 
     $scope.searchCategories = function(){
         console.log("buscando categorias");
@@ -31,10 +32,12 @@ function CategoriasMLMController ($scope,$timeout,$filter,Categories,Category,At
         var params = {categoryId:catId};
         $scope.categoriesPathRoot = [];
         $scope.isSearching = true;
+        $scope.categoriaEspejo = "";
         Category.get(params,{}, function (data) {
             $scope.categories = data.children_categories;
             $scope.categoriesPathRoot = data.path_from_root;
             $scope.listAllowed = data.settings.listing_allowed;
+            $scope.categoriaEspejo = data.settings.mirror_category;
             $scope.attributeTypes = data.attribute_types;
         },function (error){
            $scope.categories = "No encontradas..";
