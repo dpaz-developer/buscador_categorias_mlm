@@ -90,7 +90,18 @@
           </div>
           <div class="modal-body">
             <span ng-repeat="attr in listAttributes">
-               <br/> -<b>{{attr.name}}</b>[<span ng-repeat="values in attr.values">{{values.name}},</span>]
+               <br/>
+               <h3>{{attr.id}}-{{attr.name}}-{{attr.value_type}}</h3>
+               <table class="table table-striped">
+                  <tr>
+                    <th>id</th>
+                    <th>name</th>
+                  </tr>
+                  <tr ng-repeat="values in attr.values">
+                    <td>{{values.id}}</td>
+                    <td>{{values.name}}</td>
+                  </tr>
+               </table>
             </span> 
           </div>
         </div>
@@ -126,7 +137,7 @@
 <script>
     var accessToken = "1111";
     var apiBaseUrl  = "https://api.mercadolibre.com";
-    var appSiteId   = "MLV";
+    var appSiteId   = "MLM";
     var userEmail   =  "dpaz@autoplaza.com.mx";
     var appBrand    = "";
     //var userEmail =  "dpaz@mercadolibre.com.mx";
