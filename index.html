@@ -74,13 +74,13 @@
                     <th>Atributos</th>
                     <th>Publicar</th>
                 </tr>
-                <tr ng-repeat="category in categories">
+                <tr ng-repeat="category in categories" ng-init="searchListAllowedByCategory(category.id, $index);">
                     <td>{{category.id}}</td>
                     <td><a href="#" ng-click="searchCategory(category.id);">{{category.name}}</a></td>
                     <td><a href="#" ng-show="attributeTypes!='none'" ng-click="searchAttributes(category.id, category.name);" data-toggle="modal" data-target="#myModal">{{attributeTypes}}</a></td>
                     <td>
-                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                      <span  class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                      <span ng-show="listAllowedByCategory[$index]" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                      <span  ng-show="!listAllowedByCategory[$index]" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </td>
                 </tr>
             </table>

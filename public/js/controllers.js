@@ -7,11 +7,12 @@ function CategoriasMLMController ($scope,$timeout,$filter,Categories,Category,At
     $scope.categories = [];
     $scope.categoriesPathRoot = [];
     $scope.listAllowed = false;
-    $scope.listAllowedByCategory = false;
+    $scope.listAllowedByCategory = [];
     $scope.isSearching = false;
     $scope.isSearchAttributes = false;
     $scope.listAttributes = [];
     $scope.categoriaEspejo = "";
+
 
     $scope.searchCategories = function(){
         console.log("buscando categorias");
@@ -48,15 +49,15 @@ function CategoriasMLMController ($scope,$timeout,$filter,Categories,Category,At
         });
     };
 
-    $scope.searchListAllowedByCategory = function (catId){
+    $scope.searchListAllowedByCategory = function (catId, index){
+        
         if(catId){
-            console.log ("buscando si puedo publica en la categoria = "+catId);
-             var params = {categoryId:catId};
+            var params = {categoryId:catId};
              Category.get(params,{}, function (data) {
-                $scope.listAllowedByCategory = data.settings.listing_allowed;
+                $scope.listAllowedByCategory[index] = data.settings.listing_allowed;
 
             },function (error){
-               $scope.listAllowedByCategory = false;
+               $scope.listAllowedByCategory[index] = false;
             });
         }
     };
