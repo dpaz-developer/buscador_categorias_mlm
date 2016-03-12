@@ -14,10 +14,11 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/navbar-static-top.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
 
 
 </head>
-<body ng-app="CategoriasMLM"  ng-controller="CategoriasMLMController">
+<body ng-app="CategoriasMLM"  ng-controller="CategoriasMLMController" ng-init="searchCategories()">
     <!-- Static navbar -->
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
@@ -32,7 +33,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Inicio</a></li>
+            <li><h3>TLALOC <small>[Administrador de categorias de mercadolibre]</small></h3></li>
           </ul>
           
         </div><!--/.nav-collapse -->
@@ -41,47 +42,60 @@
 
 
     <div class="container">
-      <h1>Explorador de categorias MLM</h1>
-
+    <br>
       <div>
-        <div>
-        <form class="form-inline">
-          <div class="form-group">            
-            <button type="submit" ng-click="searchCategories()" class="btn btn-default">Categorias Raíz</button>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail2">Búsqueda por id</label>
-            <input type="text" ng-model="inputCatId" class="form-control"  placeholder="categoryId">
-          </div>
-          <button type="submit"  ng-click="searchCategory(inputCatId);" class="btn btn-default">Buscar</button>
-        </form>
+        <div class="search-by-category" >
+          <form class="form-inline">
+            <div class="form-group">
+              <label for="exampleInputEmail2">Búsqueda:</label>
+              <input type="text" ng-model="inputCatId" class="form-control"  placeholder="ej. MLM1743">
+            </div>
+            <button type="submit"  ng-click="searchCategory(inputCatId);" class="btn btn-default">Buscar</button>
+          </form>
         </div>
         
         <div ng-show="isSearching">
-            <a href="" ng-click="searchCategories()">/</a>
-            <button class="btn btn-link" ng-click="exportToExcel('#Table1')">
-                <span class="glyphicon glyphicon-share"></span> Export to Excel
-            </button>
-            <span ng-repeat="categoryPathRoot in categoriesPathRoot">
-                ->{{categoryPathRoot.id}}-<a href="#" ng-click="searchCategory(categoryPathRoot.id);">{{categoryPathRoot.name}}</a>
-            </span>
-            <div ng-show="listAllowed" class="alert alert-success" role="alert">Si puedes publicar!! Categoria Espejo = ({{categoriaEspejo}})</div>
-            <div ng-show="!listAllowed" class="alert alert-warning" role="alert">No puedes publicar!!</div>
+            
+            <div class="breadcums-header">
+              <div class="row">
+                <div class="col-md-8">
+                  <ol class="breadcrumb" >
+                    <li class="active" > <a href="" ng-click="searchCategories()">Inicio</a></li>
+                    <li class="active" ng-repeat="categoryPathRoot in categoriesPathRoot">
+                      <a href="#" ng-click="searchCategory(categoryPathRoot.id);">
+                        <small>({{categoryPathRoot.id}})</small>{{categoryPathRoot.name}}
+                      </a>
+                    </li>
+                  </ol>
+                </div>
+                <div class="col-md-4">
+                  <div class="btn-group" role="group" aria-label="...">
+                    <button type="button"  class="btn btn-default" ng-click="exportToExcel('#Table1')">
+                      <span class="glyphicon glyphicon-share"></span> Exportar a excel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Espejo = ({{categoriaEspejo}}) -->
+            
             <table id="Table1" class="table table-striped">
                 <tr>
+                    <th>Publicar</th>
                     <th>#mlmId</th>
                     <th>Nombre</th>
                     <th>Atributos</th>
-                    <th>Publicar</th>
                 </tr>
                 <tr ng-repeat="category in categories" ng-init="searchListAllowedByCategory(category.id, $index);">
-                    <td>{{category.id}}</td>
-                    <td><a href="#" ng-click="searchCategory(category.id);">{{category.name}}</a></td>
-                    <td><a href="#" ng-show="attributeTypes!='none'" ng-click="searchAttributes(category.id, category.name);" data-toggle="modal" data-target="#myModal">{{attributeTypes}}</a></td>
                     <td>
                       <span ng-show="listAllowedByCategory[$index]" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                       <span  ng-show="!listAllowedByCategory[$index]" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </td>
+                    <td>{{category.id}}</td>
+                    <td><a href="#" ng-click="searchCategory(category.id);">{{category.name}}</a></td>
+                    <td><a href="#" ng-show="attributeTypes!='none'" ng-click="searchAttributes(category.id, category.name);" data-toggle="modal" data-target="#myModal">{{attributeTypes}}</a></td>
+                  
                 </tr>
             </table>
         </div>
